@@ -1,39 +1,32 @@
 'use client';
 
+import { Conversation, ConversationEmptyState } from '@/components/ai-elements/conversation';
+import { PromptInput, PromptInputBody, PromptInputSubmit, PromptInputTextarea, PromptInputTools } from '@/components/ai-elements/prompt-input';
 import { useChat } from '@ai-sdk/react';
-import { useState } from 'react';
+import { MicIcon } from 'lucide-react';
 
-export default function Chat() {
-  const [input, setInput] = useState('');
-  const { messages, sendMessage } = useChat();
+const Chat = () => {
+  const { messages, sendMessage, status } = useChat();
+
+  console.log(messages, status);
+
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      {messages.map(message => (
-        <div key={message.id} className="whitespace-pre-wrap">
-          {message.role === 'user' ? 'User: ' : 'AI: '}
-          {message.parts.map((part, i) => {
-            switch (part.type) {
-              case 'text':
-                return <div key={`${message.id}-${i}`}>{part.text}</div>;
-            }
-          })}
-        </div>
-      ))}
+    <div className="font-sans min-h-[100vh] flex flex-col items-center p-6">
+      <main className='w-full max-w-2xl flex flex-col gap-4 flex-1'>
+        <h1 className="text-xl font-semibold">Chat</h1>
 
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          sendMessage({ text: input });
-          setInput('');
-        }}
-      >
-        <input
-          className="fixed dark:bg-zinc-900 bottom-0 w-full max-w-md p-2 mb-8 border border-zinc-300 dark:border-zinc-800 rounded shadow-xl"
-          value={input}
-          placeholder="Say something..."
-          onChange={e => setInput(e.currentTarget.value)}
-        />
-      </form>
+        <Conversation>{messages.length === 0 ? (<ConversationEmptyState description='Say Hi!' />) : null}</Conversation>
+        <PromptInput multiple onSubmit={() => { }}>
+          <PromptInputBody>
+            <PromptInputTextarea placeholder='Type a message...' />
+          </PromptInputBody>
+          <PromptInputTools>
+            <PromptInputSubmit status={status} />
+          </PromptInputTools>
+        </PromptInput>
+      </main>
     </div>
   );
 }
+
+export default Chat;
