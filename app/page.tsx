@@ -3,7 +3,6 @@
 import { Conversation, ConversationEmptyState } from '@/components/ai-elements/conversation';
 import { PromptInput, PromptInputBody, PromptInputSubmit, PromptInputTextarea, PromptInputTools } from '@/components/ai-elements/prompt-input';
 import { useChat } from '@ai-sdk/react';
-import { MicIcon } from 'lucide-react';
 
 const Chat = () => {
   const { messages, sendMessage, status } = useChat();
