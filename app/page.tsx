@@ -16,7 +16,7 @@ const Chat = () => {
     <div className="font-sans h-screen flex flex-col items-center p-6 bg-background">
       <main className="w-full max-w-2xl flex flex-col gap-8 flex-1">
         <h1 className="text-xl font-semibold text-center text-foreground">Let's talk about Marko Penava...</h1>
-        <Conversation className="border rounded-xl">
+        <Conversation>
           <ConversationContent>
             {messages.length === 0 ? (
               <ConversationEmptyState
