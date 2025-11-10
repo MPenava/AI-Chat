@@ -9,17 +9,16 @@ const Iframe = () => {
 
     return (
         <div className="font-sans min-h-[100vh] flex flex-col items-center p-6">
-            <main className="w-full max-w-2xl flex flex-col gap-4 flex-1 align-items-center justify-center">
-                <div className='items-center'>
-                    <h1 className="text-3xl font-semibold mb-3">Start AI Chat</h1>
-                    { /* changed: attach onClick to navigate to root */}
-                    <Button size="lg" className="w-fit" onClick={goRoot}>
+            <main className="w-full max-w-2xl flex flex-col gap-4 flex-1 items-center justify-center">
+                <div className="flex flex-col items-center justify-center text-center gap-4">
+                    <h1 className="text-3xl font-semibold mb-3 text-center">Start AI Chat</h1>
+                    <Button size="lg" variant="outline" className="w-fit" onClick={goRoot}>
                         <Rocket />
                         Start Chat
                     </Button>
                 </div>
-            </main>
-        </div>
+            </main >
+        </div >
     )
 }
 
