@@ -1,28 +1,71 @@
 'use client';
 
-import { Conversation, ConversationEmptyState } from '@/components/ai-elements/conversation';
-import { PromptInput, PromptInputBody, PromptInputSubmit, PromptInputTextarea, PromptInputTools } from '@/components/ai-elements/prompt-input';
+import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from '@/components/ai-elements/conversation';
+import { Message, MessageContent, MessageResponse } from '@/components/ai-elements/message';
+import { PromptInput, PromptInputBody, PromptInputProvider, PromptInputSubmit, PromptInputTextarea, PromptInputTools } from '@/components/ai-elements/prompt-input';
 import { useChat } from '@ai-sdk/react';
+import { useState } from 'react';
+import { Input } from '@/components/ui/input';
+import { MessageSquare } from 'lucide-react';
+
 
 const Chat = () => {
   const { messages, sendMessage, status } = useChat();
-
-  console.log(messages, status);
 
   return (
     <div className="font-sans min-h-[100vh] flex flex-col items-center p-6">
       <main className='w-full max-w-2xl flex flex-col gap-4 flex-1'>
         <h1 className="text-xl font-semibold">Chat</h1>
 
-        <Conversation>{messages.length === 0 ? (<ConversationEmptyState description='Say Hi!' />) : null}</Conversation>
-        <PromptInput multiple onSubmit={() => { }}>
-          <PromptInputBody>
-            <PromptInputTextarea placeholder='Type a message...' />
-          </PromptInputBody>
-          <PromptInputTools>
-            <PromptInputSubmit status={status} />
-          </PromptInputTools>
-        </PromptInput>
+        <Conversation>
+          <ConversationContent>
+            {messages.length === 0 ? (
+              <ConversationEmptyState
+                icon={<MessageSquare className="size-12" />}
+                title="Start a conversation"
+                description="Type a message below to begin chatting"
+              />
+            ) : (
+              messages.map((message) => (
+                <Message from={message.role} key={message.id}>
+                  <MessageContent>
+                    {message.parts.map((part, i) => {
+                      switch (part.type) {
+                        case 'text':
+                          return (
+                            <MessageResponse key={`${message.id}-${i}`}>
+                              {part.text}
+                            </MessageResponse>
+                          );
+                        default:
+                          return null;
+                      }
+                    })}
+                  </MessageContent>
+                </Message>
+              ))
+            )}
+          </ConversationContent>
+          <ConversationScrollButton />
+        </Conversation>
+        <PromptInputProvider>
+          <PromptInput globalDrop multiple onSubmit={(message, e) => {
+            e.preventDefault();
+            const text = (message.text ?? "").trim();
+            if (text) {
+              sendMessage({ text });
+            }
+          }}>
+
+            <PromptInputBody>
+              <PromptInputTextarea placeholder="Type a message..." />
+            </PromptInputBody>
+            <PromptInputTools>
+              <PromptInputSubmit status={status} />
+            </PromptInputTools>
+          </PromptInput>
+        </PromptInputProvider>
+
       </main>
     </div>
   );
