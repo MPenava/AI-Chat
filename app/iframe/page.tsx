@@ -14,7 +14,7 @@ const Iframe = () => {
                     <h1 className="text-3xl font-semibold mb-3 text-center">Start AI Chat</h1>
                     <Button size="lg" variant="outline" className="w-fit" onClick={goRoot}>
                         <Rocket />
-                        Start Chat
+                        Chat about Marko Penava
                     </Button>
                 </div>
             </main >

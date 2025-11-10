@@ -13,11 +13,10 @@ const Chat = () => {
   const { messages, sendMessage, status } = useChat();
 
   return (
-    <div className="font-sans min-h-[100vh] flex flex-col items-center p-6 bg-background">
+    <div className="font-sans h-screen flex flex-col items-center p-6 bg-background">
       <main className="w-full max-w-2xl flex flex-col gap-8 flex-1">
-        <h1 className="text-xl font-semibold text-center text-foreground">AI Chat</h1>
-
-        <Conversation className="border border-1 rounded-xl">
+        <h1 className="text-xl font-semibold text-center text-foreground">Let's talk about Marko Penava...</h1>
+        <Conversation className="border rounded-xl">
           <ConversationContent>
             {messages.length === 0 ? (
               <ConversationEmptyState
