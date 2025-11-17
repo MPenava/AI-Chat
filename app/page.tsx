@@ -12,7 +12,7 @@ const Chat = () => {
 
   return (
     <div className="font-sans h-screen flex flex-col items-center p-6 bg-background">
-      <main className="w-full max-w-2xl flex flex-col gap-8 flex-1 overflow-hidden">
+      <main className="w-full max-w-2xl flex flex-col gap-8 flex-1 overflow-y-hidden">
         <h1 className="text-xl font-semibold text-center text-foreground">Let's talk about Marko Penava...</h1>
         <Conversation>
           <ConversationContent>
@@ -52,7 +52,8 @@ const Chat = () => {
             if (text) {
               sendMessage({ text });
             }
-          }}>
+          }}
+            className="p-1">
             <PromptInputBody>
               <PromptInputTextarea placeholder="Type a message..." />
             </PromptInputBody>
