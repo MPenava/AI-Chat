@@ -4,8 +4,6 @@ import { Conversation, ConversationContent, ConversationEmptyState, Conversation
 import { Message, MessageContent, MessageResponse } from '@/components/ai-elements/message';
 import { PromptInput, PromptInputBody, PromptInputProvider, PromptInputSubmit, PromptInputTextarea, PromptInputTools } from '@/components/ai-elements/prompt-input';
 import { useChat } from '@ai-sdk/react';
-import { useState } from 'react';
-import { Input } from '@/components/ui/input';
 import { MessageSquare } from 'lucide-react';
 
 
@@ -14,7 +12,7 @@ const Chat = () => {
 
   return (
     <div className="font-sans h-screen flex flex-col items-center p-6 bg-background">
-      <main className="w-full max-w-2xl flex flex-col gap-8 flex-1">
+      <main className="w-full max-w-2xl flex flex-col gap-8 flex-1 overflow-hidden">
         <h1 className="text-xl font-semibold text-center text-foreground">Let's talk about Marko Penava...</h1>
         <Conversation>
           <ConversationContent>
